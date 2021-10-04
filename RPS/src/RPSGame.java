@@ -10,14 +10,30 @@ public class RPSGame {
     private String twoMove; // second player's move
     private String winner; // which player won?
 
+    /**
+     * Constructs a RPS with a number of rounds wanted to be played
+     * 
+     * @param numRounds the number of rounds to be played
+     */
     public RPSGame(int numRounds) {
         roundsTotal = numRounds;
     }
 
+    /**
+     * Uses private methods to play the game
+     */
     public void playGame() {
-        // TODO: Implement this method
+    	initializeGame();
+    	while(gameOver()== false){
+    		advancePlay();
+    		showGame();
+    	}
+    	judgeAndReport();
     }
 
+    /**
+     * initializes the variables, of the game
+     */
     private void initializeGame() {
         roundsPlayed = 0;
         oneWins = 0;
@@ -25,10 +41,18 @@ public class RPSGame {
         winner = "";
     }
 
+    /**
+     * Returns whether or not the game should be over
+     * 
+     * @return true or false of whether the specified amount of rounds has been played
+     */
     private boolean gameOver() {
         return (roundsPlayed == roundsTotal);
     }
 
+    /**
+     * Determines the winner of each round
+     */
     private void advancePlay() {
         roundsPlayed++;
 
@@ -50,15 +74,36 @@ public class RPSGame {
         }
     }
 
+    /**
+     * Return Rock, Paper or Scissors value based on random number
+     * 
+     * @return the rock, paper, or scissors values based on the randomly generated numbers
+     */
     private String chooseRPS() {
         // TODO: implement this method. Use Math.random() and the values .33 and .66 to
         // make equally likely random choices of "Rock", "Paper", "Scissors".
+    	double rand = Math.random();
+    	if(rand <= 0.33) {
+    		return ("Rock");
+    	}
+    	else if (rand <= 0.66) {
+    		return("Paper");
+    	}
+    	else{
+    		return("Scissors");
+    	}
     }
 
+    /**
+     * Prints results as game progresses
+     */
     private void showGame() {
         System.out.println(oneMove + " vs. " + twoMove + ": " + roundWinner + " wins.");
     }
 
+    /**
+     * determines the winner of the match
+     */
     private void judgeAndReport() {
         if (oneWins > twoWins) {
             winner = "Player One";
